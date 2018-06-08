@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<style>
+html,
+body { height: 100%; padding: 0; margin: 0; }
+.outer { height: 100%; padding: 100px 0 0; box-sizing: border-box ; position: relative; }
+.A { height: 100px; background-color:#4F4F4F; position: absolute; top: 0 ; left: 0 ; width: 100%; }
+.B { height: 100%; width: 50%; position: absolute; top : 100px ; left: 0 ; background-color:#FAFAFA; }
+.C { height: 100%; width: 50%; position: absolute; top : 100px ; right: 0 ; background-color:#FAFAFA; }
+.text{ font-size:24px; }
+</style>
+<head>
+    <meta charset="utf-8">
+    <title>各流程使用量统计</title>
+    <meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1"/>
+    <script type="text/javascript" src="./lib/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="./lib/angularjs/angular.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./lib/bootstrap-datepicker/css/bootstrap-datetimepicker.min.css">
+    <script type="text/javascript" src="./lib/bootstrap-datepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="./lib/bootstrap-datepicker/js/locales/bootstrap-datetimepicker.zh_CN.js"></script>
+    <script type="text/javascript" src="./lib/moment/moment.min.js"></script>
+	<script type="text/javascript" src="./lib/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="./lib/echarts/theme/dark.js"></script>
+    <script type="text/javascript" src="./lib/echarts/theme/shine.js"></script>
+    <script type="text/javascript" src="./lib/echarts/theme/macarons.js"></script>
+    <script type="text/javascript" src="./lib/echarts/theme/infographic.js"></script>
+    <script type="text/javascript" src="./js/statisticsEntry.js"></script>
+</head>
+<body ng-app="myApp">
+<div class="outer" ng-controller="myCtrl">
+    <div class="A">
+        <div class="row" style="padding-top:5px;">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="text control-label col-md-4">起始时间:</label>
+                    <div class="col-md-8">
+                        <input type="text" ng-change="startTimeChange()" 
+                        ng-model="startTime" class="form-control datetimepicker" 
+                        placeholder="请输入开始日期">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="text control-label col-md-4" >结束时间:</label>
+                    <div class="col-md-8">
+                        <input type="text" ng-change="endTimeChange()" 
+                        ng-model="endTime" class="form-control datetimepicker" 
+                        placeholder="请输入结束日期">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+        			<label class="text control-label col-md-4">主题:</label>
+                    <div class="col-md-8">
+            		    <select class="form-control" ng-change="themeChange()" 
+                        ng-model="theme" ng-init="theme = 'dark'">
+                            <option value="dark" selected="true">dark</option>
+            		        <option value="shine" >shine</option>
+            		        <option value="macarons" >macarons</option>
+            		        <option value="infographic" >infographic</option>
+            		    </select>
+                    </div>
+        	    </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-md-offset-4" id="button-toolbar">
+            <div id="btn-toolbar" class="btn-group" role="group" aria-label="...">
+              <button type="button" ng-click="search()" class="btn btn-primary" data-cmd="search" style="margin-right:5px;"><i class="fa fa-search"></i>查询</button> 
+              <button type="button" ng-click="reset()" class="btn btn-primary" data-cmd="reset" style="margin-right:5px;"><i class="fa fa-times"></i>重置</button>
+            </div>
+        </div>
+    </div>
+    <div class="B" id="main_pie"></div>
+    <div class="C" id="main_bar"></div>
+</div>
+</body>
+</html>
